@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RED CHEATS - VIP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --red: #ff3a3a;
+            --bg: #050505;
+            --panel: #0d0d0d;
+            --card: #141414;
+            --border: #222;
+        }
+
+        * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        body { background: var(--bg); color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
+
+        #login-screen {
+            position: absolute; width: 100%; height: 100%; background: var(--bg);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000;
+        }
+
+        .logo-login { 
+            width: 160px; height: 160px; border-radius: 50%; 
+            border: 3px solid var(--red); 
+            box-shadow: 0 0 35px rgba(255, 58, 58, 0.5); 
+            margin-bottom: 30px;
+            background: #000;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden;
+        }
+
+        /* ESTA ES LA IMAGEN QUE SUBIRÁS */
+        .logo-login img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .login-box { width: 85%; max-width: 320px; text-align: center; }
+        .login-box input { 
+            width: 100%; padding: 18px; background: #000; border: 1px solid var(--red); 
+            color: #fff; border-radius: 15px; outline: none; margin-bottom: 20px; 
+            text-align: center; font-size: 1rem; font-weight: bold;
+        }
+
+        .btn-red { 
+            width: 100%; padding: 16px; background: var(--red); color: #fff; border: none; 
+            border-radius: 15px; font-weight: 800; text-transform: uppercase; cursor: pointer; 
+            box-shadow: 0 5px 25px rgba(255, 58, 58, 0.4);
+        }
+
+        .main-container { display: none; width: 360px; height: 600px; background: var(--panel); border-radius: 30px; border: 1px solid var(--border); overflow: hidden; }
+        .sidebar { width: 75px; background: #000; border-right: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; padding: 30px 0; gap: 30px; }
+        .nav-item { color: #222; font-size: 1.5rem; }
+        .nav-item.active { color: var(--red); }
+        .content { flex: 1; padding: 25px; display: flex; flex-direction: column; }
+        .header { margin-bottom: 20px; font-weight: 800; color: var(--red); text-transform: uppercase; font-size: 0.8rem; border-bottom: 1px solid #222; padding-bottom: 10px;}
+        .card { background: var(--card); border-radius: 20px; padding: 18px; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); margin-bottom: 12px; }
+        
+        .switch { position: relative; width: 45px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #222; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: #fff; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--red); }
+        input:checked + .slider:before { transform: translateX(21px); }
+    </style>
+</head>
+<body>
+
+<div id="login-screen">
+    <div class="logo-login">
+        <img src="logo.png" alt="RED CHEATS" onerror="this.style.display='none'">
+    </div>
+    <div class="login-box">
+        <input type="text" id="key-input" placeholder="DIGITE SUA KEY VIP">
+        <button class="btn-red" onclick="validar()">ENTRAR NO SISTEMA</button>
+    </div>
+</div>
+
+<div class="main-container" id="main-panel">
+    <div class="sidebar">
+        <i class="fas fa-crosshairs nav-item active"></i>
+        <i class="fas fa-bolt nav-item"></i>
+        <i class="fas fa-shield-virus nav-item"></i>
+    </div>
+    <div class="content">
+        <div class="header">RED CHEATS - ATIVO</div>
+        <div class="card">
+            <div><b>Aimbot 100%</b><br><small>Foco na Cabeça</small></div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+        <div class="card">
+            <div><b>Hitbox Especial</b><br><small>Precisão Aumentada</small></div>
+            <label class="switch"><input type="checkbox"><span class="slider"></span></label>
+        </div>
+        <button class="btn-red" style="margin-top:auto" onclick="alert('Injetando...')">INJETAR AGORA</button>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBEMga6TUJBTle0I7kiFauscFic75duSkU",
+        authDomain: "foxrank-939be.firebaseapp.com",
+        databaseURL: "https://foxrank-939be-default-rtdb.firebaseio.com",
+        projectId: "foxrank-939be",
+        appId: "1:604164696580:web:b7e1fcd68c61aab694e351"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    window.validar = async function() {
+        const k = document.getElementById('key-input').value.trim();
+        if(!k) return alert("Digite a Key!");
+        try {
+            const s = await get(ref(db, 'keys/'+k));
+            if(s.exists()){
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-panel').style.display = 'flex';
+            } else { alert("Key Inválida!"); }
+        } catch(e) { alert("Erro de conexão!"); }
+    }
+</script>
+</body>
+</html>
